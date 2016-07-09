@@ -1,0 +1,22 @@
+title "Funny, It Worked Last Time..."
+
+echo "This is a story about an ordinary teddy bear."
+
+#memory stack 300 mb heap 300 mb global 600 mb
+
+# Each of these allocations is PER PROCESS!
+# * global is for GA, stack is local.
+# * heap usage appears to be system-size invariant.
+# * stack+heap is statically allocated at boot.
+# * global is allocated on-demand.
+
+# The default memory settings for NWChem are not optimal for TCE calculations.
+# When 2 GB of memory is available per process, the following settings are close
+# to optimal for CCSD jobs
+
+memory stack 800 mb heap 100 mb global 1000 mb
+
+
+echo
+
+geometry noautoz units angstroms

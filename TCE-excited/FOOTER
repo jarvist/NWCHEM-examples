@@ -1,0 +1,45 @@
+end
+basis
+# * library 6-31g*
+ * library sto-3g
+end
+
+# OK, geometry read in...
+
+scf
+    thresh 1.0e-10
+    tol2e 1.0e-10
+    singlet
+    rhf
+end
+
+# See page 64 onwards:
+# https://wiki.alcf.anl.gov/images/b/bc/NWChem_tutorial.pdf
+# And main documentation: http://www.nwchem-sw.org/index.php/Release66:TCE
+tce
+    CC2  #CREOMSD(T)
+    io ga # Global Arrays?
+# EOMSOL -- alternative solver for the right EOMCCSD eigenvalue problem
+# The EOMSOL 2 algorithm uses the CIS vectors as initial guesses, and for this
+# reason is suited mainly to track singly excited states.
+    eomsol 2 
+    DIIS 7
+    TILESIZE 15
+#tilesize
+#n=32 for methods ending in SD.
+#n=20 for methods ending in (T).
+
+    2eorbe # Option 2EORB is used in order to minimize memory requirements associated with the storage of two-electron integrals.
+    2emet 13 #In any type of the active-space CR-EOMCCSD(T) calculatoins based on the RHF and ROHF references more efficient versions of the orbital 4-index transformation can be invoked (i.e., 2emet 13 or 2emet 14).
+
+    nroots 3
+    freeze atomic
+    thresh 1.0d-5
+end
+
+# set tce:nts T
+# Optimised collective task pool methods for CCSD/EOMCCSD
+# The new approach uses more global memory; but better scalability + parralel
+
+
+task tce energy
