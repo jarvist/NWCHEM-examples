@@ -6,14 +6,17 @@ end
 
 # OK, geometry read in...
 
+set geometry "system"
+
 dft
 #  xc pbe0 
-  xc pbe 
+    xc xpbe96 cpbe96
 end
 
 ## Compute ground state of the system
 task dft energy
 
+# Real Time DFT - Kick in X
 unset rt_tddft:*
 rt_tddft
     tmax 200.0
@@ -30,5 +33,41 @@ rt_tddft
     excite "system" with "kick"
 end
 
+task dft rt_tddft
+
+# Real Time DFT - Kick in Y 
+unset rt_tddft:*
+rt_tddft
+  tmax 200.0
+  dt 0.2
+ 
+  tag "kick_y"
+ 
+  field "kick"
+    type delta
+    polarization y
+    max 0.0001
+  end
+ 
+  excite "system" with "kick"
+ end
+task dft rt_tddft
+
+# Real Time DFT - Kick in Z
+unset rt_tddft:*
+rt_tddft
+  tmax 200.0
+  dt 0.2
+ 
+  tag "kick_z"
+ 
+  field "kick"
+    type delta
+    polarization z
+    max 0.0001
+  end
+ 
+  excite "system" with "kick"
+ end
 task dft rt_tddft
 
