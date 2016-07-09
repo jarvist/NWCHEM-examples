@@ -1,0 +1,24 @@
+end
+
+basis "ao basis" spherical
+ * library aug-cc-pvdz
+end
+
+basis "ri-mp2 basis" spherical
+ * library cc-pvdz-RI
+ * library aug-cc-pvdz-RI_diffuse
+end
+
+SCF
+
+END
+
+TASK SCF
+
+MP2
+    FREEZE atomic #Tonight make it magnificent
+    print high
+    scratchdisk 5000 #5GB / process - only used if semi-direct
+END
+
+TASK RIMP2

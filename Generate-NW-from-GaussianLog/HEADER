@@ -1,0 +1,5 @@
+title "Some funky RI-MP2 Energy Calcs"
+echo "This is a story about an ordinary teddy bear."
+memory stack 932 mb heap 100 mb global 466 mb #Gig and a half by standard
+echo
+geometry noautoz units angstroms
