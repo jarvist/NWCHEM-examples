@@ -1,0 +1,17 @@
+#BSUB -o stdout.%J.txt
+#BSUB -e stderr.%J.txt
+#BSUB -R "span[ptile=24]"
+#BSUB -q nxq
+#BSUB -n 96
+#BSUB -W 23:59
+#BSUB -J NWCHEM
+
+cd $LS_SUBCWD
+
+source /etc/profile.d/modules.sh
+module purge
+
+module load nwchem/6.6
+
+# NB: makes a big messy directory of files. 
+mpiexec.hydra -n 96 nwchem PFO-SpiroCN-PFO.nw > PFO-SpiroCN-PFO.out
